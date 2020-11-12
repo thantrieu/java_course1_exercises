@@ -10,10 +10,13 @@ public class L14Ex13 {
         var input = new Scanner(System.in);
         var choice = 0;
         var str = "==========================================";
-        do {
+        while (true){
             System.out.println(str);
             System.out.println("Nhập 0 để thoát. Nhập số khác để tiếp tục.");
             choice = input.nextInt();
+            if(choice == 0) {
+                break; // thoát chương trình
+            }
             System.out.println("Nhập ngày sinh tháng sinh cách nhau bởi 1 dấu cách: ");
             var day = input.nextInt();
             var month = input.nextInt();
@@ -136,6 +139,6 @@ public class L14Ex13 {
             if (!zodiac.isEmpty()) {
                 System.out.println("Cung hoàng đạo nhà bạn là: " + zodiac);
             }
-        } while (choice != 0);
+        }
     }
 }

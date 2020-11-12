@@ -10,12 +10,15 @@ public class L14Ex14 {
         var input = new Scanner(System.in);
         var str = "=============================================";
         var choice = 0;
-        do {
+        while (true){
             System.out.println(str);
             System.out.println("Nhập 0 để kết thúc. Nhập số khác để tiếp tục.");
             choice = input.nextInt();
             // đọc bỏ dòng chứa kí tự thừa:
             input.nextLine();
+            if(choice == 0) {
+                break;
+            }
             System.out.println("Nhập tên ngày của tuần: ");
             var dayOfWeek = input.nextLine();
             var result = ""; // biến lưu kết quả chuyển đổi
@@ -51,6 +54,6 @@ public class L14Ex14 {
             }
             System.out.println("Kết quả chuyển đổi: ");
             System.out.println(dayOfWeek + " -> " + result);
-        } while (choice != 0);
+        }
     }
 }
