@@ -12,7 +12,7 @@ public class L9Ex3 {
         var fullName = input.nextLine(); // đọc cả dòng họ tên
         // tiến hành kiểm tra:
 
-        if(fullName.matches(".*[a-zA-Z\\s]+.*")) {
+        if(!fullName.matches(".*[a-zA-Z\\s]+.*")) {
             System.out.println("Họ tên không hợp lệ.");
         } else {
             System.out.println("Chuỗi họ tên hợp lệ.");
