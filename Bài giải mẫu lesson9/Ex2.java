@@ -4,6 +4,7 @@ import java.util.Scanner;
  * @author braniumacademy
  * @see braniumacademy.net
  * @version 2021.1.28
+ * @video https://youtu.be/6ghnLSEa1Ik
  */
 
 public class Ex2 {
