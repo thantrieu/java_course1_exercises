@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * @author braniumacademy
  * @see braniumacademy.net
- * @version 2021.1.28
+ * @version 2021.1.30
  */
 
 public class Ex6 {
