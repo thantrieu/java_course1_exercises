@@ -50,7 +50,6 @@ public class L36Ex1 {
     private static int[] getNumbers(int n, Scanner input) {
         var numbers = new int[n];
         for (int i = 0; i < n; i++) {
-            System.out.print("Nhập phần tử thứ " + (i + 1) + ": ");
             numbers[i] = input.nextInt();
         }
         return numbers;
