@@ -12,7 +12,7 @@ public class L13Ex4 {
         var str = input.nextLine();
         str = str.trim(); // loại bỏ các dấu cách thừa
         // thay thế các chỗ có 1 hoặc nhiều khoảng trắng bằng 1 dấu cách
-        str = str.replace("\\s+", " ");
+        str = str.replaceAll("\\s+", " ");
         int count = 0;
         if (!str.isEmpty()) { // nếu str không rỗng
             count = 1; // ít nhất chuỗi str có 1 từ
