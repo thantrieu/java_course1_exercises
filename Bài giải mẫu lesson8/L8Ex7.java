@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import jdk.javadoc.internal.doclets.formats.html.resources.standard;
+
 /**
  * @author Branium Academy
  * @address https://braniumacademy.net/
@@ -7,7 +9,7 @@ import java.util.Scanner;
 
 /*
     Ý tưởng của bài rất đơn giản: Sinh số ngẫu nhiên, nhân kết quả với
-    10^n để được giá trị có n chữ số. Sau đó ép kiểu sang kiểu nguyên.
+    số lượng chữ số của n để được giá trị có n chữ số. Sau đó ép kiểu sang kiểu nguyên.
     Chia dư của giá trị vừa có cho n được kết quả.
  */
 public class L8Ex7 {
@@ -20,6 +22,15 @@ public class L8Ex7 {
         var result = tmp % n; // lấy dư để đảm bảo kết quả trong [0, n)
         // hiện kết quả:
         System.out.println(result);
+    }
+
+    private static int countDigitsOfN(int n) {
+        int count = 0;
+        while(n > 0) {
+            count++;
+            n /= 10;
+        }
+        return count;
     }
 }
 // code xong ấn Ctrl Alt L để format code
