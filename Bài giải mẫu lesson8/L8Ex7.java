@@ -25,7 +25,7 @@ public class L8Ex7 {
     }
 
     private static int countDigitsOfN(int n) {
-        int count = 0;
+        int count = 1;
         while(n > 0) {
             count++;
             n /= 10;
