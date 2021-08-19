@@ -9,7 +9,7 @@ import jdk.javadoc.internal.doclets.formats.html.resources.standard;
 
 /*
     Ý tưởng của bài rất đơn giản: Sinh số ngẫu nhiên, nhân kết quả với
-    số lượng chữ số của n để được giá trị có n chữ số. Sau đó ép kiểu sang kiểu nguyên.
+    10^(số lượng chữ số của n) để được giá trị có n chữ số. Sau đó ép kiểu sang kiểu nguyên.
     Chia dư của giá trị vừa có cho n được kết quả.
  */
 public class L8Ex7 {
@@ -17,7 +17,7 @@ public class L8Ex7 {
         var input = new Scanner(System.in);
         System.out.println("Nhập vào số nguyên dương n: ");
         var n = input.nextInt(); // đọc n
-        var randNumber = Math.random() * Math.pow(10, n); // sinh số ngẫu nhiên
+        var randNumber = Math.random() * Math.pow(10, countDigitsOfN(n)); // sinh số ngẫu nhiên
         var tmp = (int)randNumber; // ép kiểu sang int
         var result = tmp % n; // lấy dư để đảm bảo kết quả trong [0, n)
         // hiện kết quả:
