@@ -22,6 +22,7 @@ public class Student {
     }
 
     public Student(String id) {
+        this();
         this.id = id;
     }
 
