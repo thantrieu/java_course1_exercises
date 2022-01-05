@@ -405,8 +405,14 @@ public class AddRegisterDialog extends javax.swing.JDialog implements ActionList
                         + "đăng ký môn học " + subject.getName() + " trước đó.";
                 showMessage(msg);
             } else {
-                homeFrm.addRegisteringCallback(r);
-                var msg = "Đăng ký môn học thành công!";
+                var msg = "";
+                if(homeFrm.addRegisteringCallback(r)) {
+                    msg = "Đăng ký môn học thành công!";
+                
+                } else {
+                    msg = "Đăng ký môn học thất bại! "
+                            + "Số môn học được phép đăng ký không quá 7.";
+                }
                 showMessage(msg);
                 dispose();
             }

@@ -1,6 +1,7 @@
 package net.braniumacademy.controller;
 
 import java.util.List;
+import net.braniumacademy.model.Registering;
 import net.braniumacademy.model.Student;
 import net.braniumacademy.model.Subject;
 
@@ -9,7 +10,7 @@ import net.braniumacademy.model.Subject;
  * @author braniumacademy <braniumacademy.net>
  */
 public interface DataController {
-
+    int MAX_REGISTER = 7;
     int SUBJECT = 1;
     int STUDENT = 2;
     int REGISTERING = 3;
@@ -45,4 +46,6 @@ public interface DataController {
     List<Student> searchStudentById(List<Student> students, String id);
     
     List<Student> searchStudentByMajor(List<Student> students, String major);
+    
+    boolean isRegisterable(List<Registering> registerings, Student s);
 }

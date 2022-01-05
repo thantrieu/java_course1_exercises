@@ -35,8 +35,7 @@ public class DataControllerImp implements DataController {
 
     @Override
     public <T> void writeToFile(List<T> data, String fileName) {
-        try ( FileOutputStream fos = new FileOutputStream(fileName);  
-                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+        try ( FileOutputStream fos = new FileOutputStream(fileName);  ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(data);
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -50,8 +49,7 @@ public class DataControllerImp implements DataController {
         List<T> data = new ArrayList<>();
         File file = new File(fileName);
         if (file.length() > 0) {
-            try ( FileInputStream fis = new FileInputStream(file); 
-                    ObjectInputStream ois = new ObjectInputStream(fis)) {
+            try ( FileInputStream fis = new FileInputStream(file);  ObjectInputStream ois = new ObjectInputStream(fis)) {
                 data = (List<T>) ois.readObject();
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
@@ -189,4 +187,14 @@ public class DataControllerImp implements DataController {
         rs.sort(new SortRegisteringByRegisterTimeLE());
     }
 
+    @Override
+    public boolean isRegisterable(List<Registering> registerings, Student s) {
+        int counter = 0;
+        for (Registering r : registerings) {
+            if (s.getId().compareTo(r.getStudent().getId()) == 0) {
+                counter++;
+            }
+        }
+        return counter < MAX_REGISTER;
+    }
 }

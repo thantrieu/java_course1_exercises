@@ -35,6 +35,17 @@ import net.braniumacademy.model.Subject;
 public class DataControllerImp implements DataController {
 
     @Override
+    public boolean isRegisterable(List<Registering> registerings, Student s) {
+        int counter = 0;
+        for (Registering r : registerings) {
+            if (s.getId().compareTo(r.getStudent().getId()) == 0) {
+                counter++;
+            }
+        }
+        return counter < MAX_REGISTER;
+    }
+
+    @Override
     public <T> void writeToFile(List<T> data, String fileName) {
         try ( FileOutputStream fos = new FileOutputStream(fileName);  ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(data);

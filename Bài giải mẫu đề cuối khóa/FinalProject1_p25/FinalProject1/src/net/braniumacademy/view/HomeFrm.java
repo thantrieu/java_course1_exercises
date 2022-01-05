@@ -870,7 +870,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         rbSearchStudentByName.addActionListener(this);
         rbSearchStudentByMajor.addActionListener(this);
         btnSearchStudent.addActionListener(this);
-        
+
         btnAddNewRegistering.addActionListener(this);
         btnRefreshRegistering.addActionListener(this);
         btnRemoveRegistering.addActionListener(this);
@@ -887,11 +887,20 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         showStudent(student);
         saveData(DataController.STUDENT);
     }
-    
-    public void addRegisteringCallback(Registering registering) {
-        registerings.add(registering);
-        showRegistering(registering);
-        saveData(DataController.REGISTERING);
+
+    public boolean addRegisteringCallback(Registering registering) {
+        // Kiểm tra xem số môn học sinh viên đã đăng ký có vượt 7 không.
+        // Nếu chưa thì cho đăng ký. Sau đó return true.
+        var isRegisterable = dataController
+                .isRegisterable(registerings, registering.getStudent());
+        if (isRegisterable) {
+            registerings.add(registering);
+            showRegistering(registering);
+            saveData(DataController.REGISTERING);
+            return true;
+        } else { // Ngược lại, không đăng ký được, return false
+            return false;
+        }
     }
 
     public void editStudentCallback(Student student) {
@@ -950,9 +959,9 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
             checkSearchField();
         } else if (obj.equals(btnSearchStudent)) {
             searchStudents();
-        } else if(obj.equals(btnAddNewRegistering)) {
+        } else if (obj.equals(btnAddNewRegistering)) {
             addNewRegistering();
-        } else if(obj.equals(btnRemoveRegistering)) {
+        } else if (obj.equals(btnRemoveRegistering)) {
             removeRegistering();
         }
     }
@@ -1290,7 +1299,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
     }
 
     private void addNewRegistering() {
-        AddRegisterDialog registerDialog = new AddRegisterDialog(this, true, 
+        AddRegisterDialog registerDialog = new AddRegisterDialog(this, true,
                 students, subjects, registerings);
         registerDialog.setVisible(true);
     }
@@ -1298,7 +1307,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
     private void showRegistering(Registering r) {
         Object[] row = new Object[]{
             r.getStudent().getStudentId(), r.getStudent().getFullName(),
-            r.getStudent().getMajor(), r.getSubject().getId(), 
+            r.getStudent().getMajor(), r.getSubject().getId(),
             r.getSubject().getName(), simpleDateFormat.format(r.getRegistedDate())
         };
         tableModelRegistering.addRow(row);
@@ -1313,9 +1322,9 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
 
     private void removeRegistering() {
         var index = tblRegistering.getSelectedRow();
-        if(index > -1) {
+        if (index > -1) {
             int retVal = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc muốn xóa bản ghi này không?");
-            if(retVal == JOptionPane.YES_OPTION) {
+            if (retVal == JOptionPane.YES_OPTION) {
                 tableModelRegistering.removeRow(index);
                 registerings.remove(index);
                 saveData(DataController.REGISTERING);

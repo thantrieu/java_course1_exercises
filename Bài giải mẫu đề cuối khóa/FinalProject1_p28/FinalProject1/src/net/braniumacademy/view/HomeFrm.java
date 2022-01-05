@@ -944,10 +944,19 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         saveData(DataController.STUDENT);
     }
 
-    public void addRegisteringCallback(Registering registering) {
-        registerings.add(registering);
-        showRegistering(registering);
-        saveData(DataController.REGISTERING);
+    public boolean addRegisteringCallback(Registering registering) {
+        // Kiểm tra xem số môn học sinh viên đã đăng ký có vượt 7 không.
+        // Nếu chưa thì cho đăng ký. Sau đó return true.
+        var isRegisterable = dataController
+                .isRegisterable(registerings, registering.getStudent());
+        if (isRegisterable) {
+            registerings.add(registering);
+            showRegistering(registering);
+            saveData(DataController.REGISTERING);
+            return true;
+        } else { // Ngược lại, không đăng ký được, return false
+            return false;
+        }
     }
 
     public void editStudentCallback(Student student) {
