@@ -404,7 +404,7 @@ public class AddRegisterDialog extends javax.swing.JDialog implements ActionList
                 var msg = "Sinh viên " + student.getFullName() + " đã "
                         + "đăng ký môn học " + subject.getName() + " trước đó.";
                 showMessage(msg);
-            } else {
+            }else {
                 var msg = "";
                 if(homeFrm.addRegisteringCallback(r)) {
                     msg = "Đăng ký môn học thành công!";

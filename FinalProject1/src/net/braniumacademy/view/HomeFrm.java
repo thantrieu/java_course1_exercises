@@ -2,13 +2,16 @@ package net.braniumacademy.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.braniumacademy.controller.DataController;
 import net.braniumacademy.controller.DataControllerImp;
+import net.braniumacademy.model.Course;
 import net.braniumacademy.model.Registering;
 import net.braniumacademy.model.Student;
 import net.braniumacademy.model.Subject;
@@ -22,10 +25,12 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
     private List<Subject> subjects;
     private List<Student> students;
     private List<Registering> registerings;
+    private List<Course> courses;
 
     private DefaultTableModel tableModelSubject;
     private DefaultTableModel tableModelStudent;
     private DefaultTableModel tableModelRegistering;
+    private DefaultTableModel tableModelCourse;
     private DataController dataController;
     private SimpleDateFormat simpleDateFormat;
 
@@ -43,6 +48,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         tableModelSubject = (DefaultTableModel) tblSubject.getModel();
         tableModelStudent = (DefaultTableModel) tblStudent.getModel();
         tableModelRegistering = (DefaultTableModel) tblRegistering.getModel();
+        tableModelCourse = (DefaultTableModel) tblCourse.getModel();
         dataController = new DataControllerImp();
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         selectedIndex = -1;
@@ -63,6 +69,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         buttonGroupSearchSubject = new javax.swing.ButtonGroup();
         buttonGroupSearchStudent = new javax.swing.ButtonGroup();
         buttonGroupSortStudent = new javax.swing.ButtonGroup();
+        buttonGroupSearchRegistering = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -124,6 +131,9 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         jLabel6 = new javax.swing.JLabel();
         txtSearchReByRegisterTimeTo = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblCourse = new javax.swing.JTable();
+        btnCreateCourse = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -585,9 +595,8 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtSearchReByRegisterTimeTo, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtSearchReByRegisterTimeFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                                .addComponent(txtSearchReByStudentName)))
+                            .addComponent(txtSearchReByRegisterTimeFrom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                            .addComponent(txtSearchReByStudentName, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(45, 45, 45)
                         .addComponent(btnSearchRegistering, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68))
@@ -604,10 +613,10 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboSortRegistering, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSortRegistering, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -625,7 +634,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtSearchReByRegisterTimeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -662,21 +671,55 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
                     .addGap(18, 18, 18)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                     .addGap(61, 61, 61)))
         );
 
         jTabbedPane1.addTab("QUẢN LÝ ĐĂNG KÝ", jPanel3);
 
+        tblCourse.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblCourse.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tên lớp học phần", "Mã sinh viên", "Họ tên sinh viên", "Lớp", "Mã môn", "Tên môn", "Thời gian đăng ký"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tblCourse);
+
+        btnCreateCourse.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCreateCourse.setText("Tạo lớp học phần");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1098, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1078, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(449, 449, 449)
+                .addComponent(btnCreateCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 633, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCreateCourse)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("PHÂN LỚP HỌC", jPanel4);
@@ -757,6 +800,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JButton btnAddNewRegistering;
     private javax.swing.JButton btnAddNewStudent;
     private javax.swing.JButton btnAddNewSubject;
+    private javax.swing.JButton btnCreateCourse;
     private javax.swing.JButton btnEditStudent;
     private javax.swing.JButton btnEditSubject;
     private javax.swing.JButton btnRefreshRegistering;
@@ -768,6 +812,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JButton btnSearchRegistering;
     private javax.swing.JButton btnSearchStudent;
     private javax.swing.JButton btnSearchSubject;
+    private javax.swing.ButtonGroup buttonGroupSearchRegistering;
     private javax.swing.ButtonGroup buttonGroupSearchStudent;
     private javax.swing.ButtonGroup buttonGroupSearchSubject;
     private javax.swing.ButtonGroup buttonGroupSortStudent;
@@ -796,6 +841,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton rbSearchReByRegisterTime;
@@ -812,6 +858,7 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JRadioButton rbSortSubjectLessonDESC;
     private javax.swing.JRadioButton rbSortSubjectNameASC;
     private javax.swing.JRadioButton rbSortSubjectNameDESC;
+    private javax.swing.JTable tblCourse;
     private javax.swing.JTable tblRegistering;
     private javax.swing.JTable tblStudent;
     private javax.swing.JTable tblSubject;
@@ -841,6 +888,9 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         buttonGroupSortStudent.add(rbSortStudentIdASC);
         buttonGroupSortStudent.add(rbSortStudentNameASC);
         buttonGroupSortStudent.add(rbSortStudentNameDESC);
+
+        buttonGroupSearchRegistering.add(rbSearchReByRegisterTime);
+        buttonGroupSearchRegistering.add(rbSearchReByStudentName);
     }
 
     private void addActionListener() {
@@ -874,6 +924,12 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         btnAddNewRegistering.addActionListener(this);
         btnRefreshRegistering.addActionListener(this);
         btnRemoveRegistering.addActionListener(this);
+        comboSortRegistering.addActionListener(this);
+        btnSearchRegistering.addActionListener(this);
+        rbSearchReByStudentName.addActionListener(this);
+        rbSearchReByRegisterTime.addActionListener(this);
+
+        btnCreateCourse.addActionListener(this);
     }
 
     public void addSubjectCallback(Subject subject) {
@@ -911,7 +967,8 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
             student.getStudentId(), student.getFullName(),
             dateFormat.format(student.getDob()), student.getAddress(),
             student.getEmail(), student.getPhoneNumber(),
-            student.getStudentClass(), student.getMajor(), student.getSchoolYear()
+            student.getStudentClass(), student.getMajor(),
+            student.getSchoolYear()
         };
         tableModelStudent.insertRow(selectedIndex, row);
         students.set(selectedIndex, student);
@@ -961,6 +1018,19 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
             searchStudents();
         } else if (obj.equals(btnAddNewRegistering)) {
             addNewRegistering();
+        } else if (obj.equals(btnRemoveRegistering)) {
+            removeRegistering();
+        } else if (comboSortRegistering.equals(obj)) {
+            sortRegistering();
+        } else if (btnSearchRegistering.equals(obj)) {
+            searchRegistering();
+        } else if (obj.equals(rbSearchReByStudentName)
+                || obj.equals(rbSearchReByRegisterTime)) {
+            switchInputState();
+        } else if (btnRefreshRegistering.equals(obj)) {
+            refreshRegistering();
+        } else if (obj.equals(btnCreateCourse)) {
+            createCourse();
         }
     }
 
@@ -976,9 +1046,11 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         subjects = dataController
                 .<Subject>readDataFromFile(DataController.SUBJECT_FILE);
         // đọc danh sách sinh viên
-        students = dataController.<Student>readDataFromFile(DataController.STUDENT_FILE);
+        students = dataController
+                .<Student>readDataFromFile(DataController.STUDENT_FILE);
         // đọc danh sách bảng đăng ký
-        registerings = dataController.<Registering>readDataFromFile(DataController.REGISTERING_FILE);
+        registerings = dataController
+                .<Registering>readDataFromFile(DataController.REGISTERING_FILE);
         editSubjectId();
     }
 
@@ -1154,7 +1226,8 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
             student.getStudentId(), student.getFullName(),
             dateFormat.format(student.getDob()), student.getAddress(),
             student.getEmail(), student.getPhoneNumber(),
-            student.getStudentClass(), student.getMajor(), student.getSchoolYear()
+            student.getStudentClass(), student.getMajor(),
+            student.getSchoolYear()
         };
         tableModelStudent.addRow(row);
     }
@@ -1306,7 +1379,8 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         Object[] row = new Object[]{
             r.getStudent().getStudentId(), r.getStudent().getFullName(),
             r.getStudent().getMajor(), r.getSubject().getId(),
-            r.getSubject().getName(), simpleDateFormat.format(r.getRegistedDate())
+            r.getSubject().getName(),
+            simpleDateFormat.format(r.getRegistedDate())
         };
         tableModelRegistering.addRow(row);
     }
@@ -1315,6 +1389,147 @@ public class HomeFrm extends javax.swing.JFrame implements ActionListener {
         tableModelRegistering.setRowCount(0);
         for (Registering r : registerings) {
             showRegistering(r);
+        }
+    }
+
+    private void removeRegistering() {
+        var index = tblRegistering.getSelectedRow();
+        if (index > -1) {
+            int retVal = JOptionPane.showConfirmDialog(rootPane,
+                    "Bạn có chắc muốn xóa bản ghi này không?");
+            if (retVal == JOptionPane.YES_OPTION) {
+                tableModelRegistering.removeRow(index);
+                registerings.remove(index);
+                saveData(DataController.REGISTERING);
+                // blabla...
+            }
+        } else {
+            var msg = "Vui lòng chọn 1 bản đăng ký để xóa!";
+            showDialogMessage(msg);
+        }
+    }
+
+    private void sortRegistering() {
+        int option = comboSortRegistering.getSelectedIndex();
+        switch (option) {
+            case 0:
+                dataController.sortRegisteringByStudentNameAZ(registerings);
+                break;
+            case 1:
+                dataController.sortRegisteringByStudentNameZA(registerings);
+                break;
+
+            case 2:
+                dataController.sortRegisteringByRegisterTimeEL(registerings);
+                break;
+
+            case 3:
+                dataController.sortRegisteringByRegisterTimeLE(registerings);
+                break;
+        }
+        showRegisterings();
+    }
+
+    private void searchRegistering() {
+        reloadRegisterings();
+        List<Registering> copyList = new ArrayList<>(registerings);
+        if (rbSearchReByRegisterTime.isSelected()) {
+            var fromStr = txtSearchReByRegisterTimeFrom.getText().trim();
+            var toStr = txtSearchReByRegisterTimeTo.getText().trim();
+            if (fromStr.isEmpty() || toStr.isEmpty()) {
+                var msg = "Vui lòng nhập đầy đủ ngày đăng ký cần tìm"
+                        + "\nĐịnh dạng: dd/MM/yyyy.";
+                showDialogMessage(msg);
+            } else {
+                var format = "dd/MM/yyyy";
+                var dateFormat = new SimpleDateFormat(format);
+                try {
+                    Date fromDate = dateFormat.parse(fromStr);
+                    Date toDate = dateFormat.parse(toStr);
+                    registerings.clear();
+                    registerings.addAll(dataController.searchReByRegisterTime(
+                            copyList, fromDate, toDate));
+                    showRegisterings();
+                    var msg = "Tìm thấy " + registerings.size() + " kết quả.";
+                    showDialogMessage(msg);
+                } catch (ParseException ex) {
+                    var msg = "Vui lòng nhập đúng định dạng dd/MM/yyyy.\n"
+                            + "Ví dụ: 25/01/2025";
+                    showDialogMessage(msg);
+                }
+            }
+        } else if (rbSearchReByStudentName.isSelected()) {
+            var name = txtSearchReByStudentName.getText().trim();
+            if (name.isEmpty()) {
+                var msg = "Vui lòng nhập tên sinh viên để tìm kiếm";
+                showDialogMessage(msg);
+            } else {
+                registerings.clear();
+                registerings.addAll(
+                        dataController.searchReByStudentName(copyList, name));
+                showRegisterings();
+                var msg = "Tìm thấy " + registerings.size() + " kết quả.";
+                showDialogMessage(msg);
+            }
+        } else {
+            var msg = "Vui lòng chọn phương thức tìm kiếm trước tìm.";
+            showDialogMessage(msg);
+        }
+    }
+
+    private void reloadRegisterings() {
+        registerings.clear();
+        registerings.addAll(dataController.<Registering>readDataFromFile(
+                DataControllerImp.REGISTERING_FILE));
+    }
+
+    private void switchInputState() {
+        if (rbSearchReByRegisterTime.isSelected()) {
+            txtSearchReByRegisterTimeFrom.setEnabled(true);
+            txtSearchReByRegisterTimeTo.setEnabled(true);
+            txtSearchReByStudentName.setEnabled(false);
+        } else if (rbSearchReByStudentName.isSelected()) {
+            txtSearchReByRegisterTimeFrom.setEnabled(false);
+            txtSearchReByRegisterTimeTo.setEnabled(false);
+            txtSearchReByStudentName.setEnabled(true);
+        }
+    }
+
+    private void refreshRegistering() {
+        var emptyText = "";
+        txtSearchReByRegisterTimeFrom.setEnabled(true);
+        txtSearchReByRegisterTimeTo.setEnabled(true);
+        txtSearchReByStudentName.setEnabled(true);
+        txtSearchReByRegisterTimeFrom.setText(emptyText);
+        txtSearchReByRegisterTimeTo.setText(emptyText);
+        txtSearchReByStudentName.setText(emptyText);
+        comboSortRegistering.setSelectedIndex(0);
+        buttonGroupSearchRegistering.clearSelection();
+        reloadRegisterings();
+    }
+
+    private void createCourse() {
+        dataController.sortRegisteringByRegisterTimeEL(registerings);
+        courses = new ArrayList<>(dataController.createCourse(registerings, subjects));
+        showCourses();
+    }
+
+    private void showCourses() {
+        var emptyStr = "_";
+        tableModelCourse.setRowCount(0);
+        for (var course : courses) {
+            for (var r : course.getRegisterings()) {
+                Object[] row = new Object[]{
+                    course.getName(), r.getStudent().getStudentId(),
+                    r.getStudent().getFullName(), r.getStudent().getMajor(),
+                    r.getSubject().getId(), r.getSubject().getName(),
+                    simpleDateFormat.format(r.getRegistedDate())
+                };
+                tableModelCourse.addRow(row);
+            }
+            var row = new Object[]{emptyStr, emptyStr, emptyStr,
+                emptyStr, emptyStr, emptyStr, emptyStr};
+            tableModelCourse.addRow(row);
         }
     }
 }

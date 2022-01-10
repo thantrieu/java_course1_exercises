@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.Scanner; // import lớp Scanner vào để sử dụng
 
 public class L29Ex4 {
     public static void main(String[] args) {
@@ -42,11 +42,13 @@ public class L29Ex4 {
     }
 
     /**
-     * phương thức hiển thị thông tin các môn học
+     * Phương thức hiển thị thông tin các môn học
      *
      * @param subjects chứa các môn học cần hiển thị
      */
     private static void showSubjects(Subject[] subjects) {
+        sort(subjects);
+
         System.out.println("================================" +
                 " THÔNG TIN MÔN HỌC ===============================");
         System.out.printf("%-15s%-20s%-15s%-15s%-15s\n",
@@ -54,6 +56,23 @@ public class L29Ex4 {
                 "Số tín chỉ", "Số tiết", "Số bài kiểm tra");
         for (var subject : subjects) {
             subject.showInfoInLine();
+        }
+    }
+
+    /**
+     * Phương thức sắp xếp danh sách môn học theo số tiết học tăng dần.
+     *
+     * @param subjects: danh sách môn học
+     */
+    private static void sort(Subject[] subjects) {
+        for (int i = 0; i < subjects.length; i++) {
+            for (int j = subjects.length - 1; j > i; j--) {
+                if (subjects[j].getNumOfLesson() < subjects[j - 1].getNumOfLesson()) {
+                    Subject tmp = subjects[j];
+                    subjects[j] = subjects[j - 1];
+                    subjects[j - 1] = tmp;
+                }
+            }
         }
     }
 }
