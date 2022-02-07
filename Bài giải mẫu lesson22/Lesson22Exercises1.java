@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 /**
  * @author Branium Academy
- * @ link: https: braniumacademy.net
+ * @see: htttps://braniumacademy.net
  */
 
-public class L22Ex1 {
+public class Lesson22Exercises1 {
     public static void main(String[] args) {
         var input = new Scanner(System.in);
         System.out.println("Nhập số phần tử của mảng: ");
@@ -67,4 +67,3 @@ public class L22Ex1 {
         return numbers;
     }
 }
-

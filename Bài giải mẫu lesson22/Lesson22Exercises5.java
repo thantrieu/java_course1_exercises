@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @ link: https: braniumacademy.net
  */
 
-public class L22Ex5 {
+public class Lesson22Exercises5 {
     public static void main(String[] args) {
         var input = new Scanner(System.in);
         System.out.println("Nhập vào một chuỗi kí tự: ");

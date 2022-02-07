@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @ link: https: braniumacademy.net
  */
 
-public class L22Ex6 {
+public class Lesson22Exercises6 {
     public static void main(String[] args) {
         var input = new Scanner(System.in);
         System.out.println("Nhập vào tên những người bạn cách nhau bởi dấu cách: ");

@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @ link: https: braniumacademy.net
  */
 
-public class L22Ex2 {
+public class Lesson22Exercises2 {
     public static void main(String[] args) {
         var input = new Scanner(System.in);
         System.out.println("Nhập số lượng số ng.tố cần tìm: ");

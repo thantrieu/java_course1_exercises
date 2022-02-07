@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @ link: https: braniumacademy.net
  */
 
-public class L22Ex7 {
+public class Lesson22Exercises7 {
     public static void main(String[] args) {
         var input = new Scanner(System.in);
         System.out.println("Nhập số phần tử của mảng: ");

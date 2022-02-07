@@ -4,8 +4,8 @@ import java.util.Scanner;
  * @author Branium Academy
  * @ link: https: braniumacademy.net
  */
- 
-public class L22Ex9 {
+
+public class Lesson22Exercises9 {
     public static void main(String[] args) {
         var input = new Scanner(System.in);
         System.out.println("Nhập số phần tử của mảng: ");
