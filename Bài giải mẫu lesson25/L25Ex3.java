@@ -37,7 +37,7 @@ public class L25Ex3 {
         for (int i = a; i <= b; i++) {
             // để tránh xảy ra ngoại lệ ta phải đảm bảo chỉ số i
             // nằm trong đoạn [0, length-1]
-            if (i >= 0 && i < numbers.length - 1 && numbers[i] == x) {
+            if (i >= 0 && i <= numbers.length - 1 && numbers[i] == x) {
                 count++; // tăng biến đếm lên 01 đơn vị
             }
         }
